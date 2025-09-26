@@ -16,195 +16,213 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      {/* GCB Logo Center Top */}
+      {/* Switch User - Top Right */}
+      <TouchableOpacity style={styles.switchUserTop}>
+        <Text style={styles.switchUserText}>Switch User?</Text>
+      </TouchableOpacity>
+
+      {/* GCB Logo */}
       <Image
         source={require("../assets/gcb-logo.webp")}
         style={styles.logo}
         resizeMode="contain"
       />
 
-      {/* Welcome Row */}
-      <View style={styles.welcomeRow}>
-        {/* User circle */}
-        <View style={styles.userBadge}>
-          <Feather name="user" size={22} color="#3C4A52" />
+      {/* Welcome Section */}
+      <View style={styles.welcomeSection}>
+        {/* User Avatar */}
+        <View style={styles.avatar}>
+          <Feather name="user" size={24} color="#3C4A52" />
         </View>
-
-        {/* Welcome text */}
-        <View style={styles.welcomeTextBox}>
-          <Text style={styles.welcomeText}>Welcome back,</Text>
-          <Text style={styles.nameText}>Leslie Allotey</Text>
-        </View>
-
-        {/* Help circle */}
-        <TouchableOpacity style={styles.helpBadge} activeOpacity={0.8}>
-          <Feather name="help-circle" size={20} color="#FFFFFF" />
-        </TouchableOpacity>
+        
+        {/* Welcome Text */}
+        <Text style={styles.welcomeText}>Welcome back,</Text>
+        <Text style={styles.nameText}>Leslie Allotey</Text>
       </View>
 
-      {/* Login label */}
-      <Text style={styles.loginLabel}>Login</Text>
+      {/* Login Form Section */}
+      <View style={styles.formSection}>
+        {/* Login Label */}
+        <Text style={styles.loginLabel}>Login</Text>
 
-      {/* Password input */}
-      <View style={styles.inputContainer}>
-        <Feather name="lock" size={20} color="#999" style={styles.icon} />
-        <TextInput
-          placeholder="Enter password"
-          placeholderTextColor="#999"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-        />
-        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-          <Feather name={showPassword ? "eye-off" : "eye"} size={20} color="#999" />
+        {/* Password Input */}
+        <View style={styles.inputContainer}>
+          <Feather name="lock" size={20} color="#999" style={styles.lockIcon} />
+          <TextInput
+            placeholder="Enter password"
+            placeholderTextColor="#999"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+          <TouchableOpacity 
+            onPress={() => setShowPassword(!showPassword)}
+            style={styles.eyeIcon}
+          >
+            <Feather 
+              name={showPassword ? "eye" : "eye-off"} 
+              size={20} 
+              color="#999" 
+            />
+          </TouchableOpacity>
+        </View>
+
+        {/* Forgot Password */}
+        <TouchableOpacity style={styles.forgotContainer}>
+          <Text style={styles.forgotText}>Forgot Password?</Text>
         </TouchableOpacity>
+
+        {/* Login Button */}
+        <Pressable
+          onPress={() => {}}
+          style={({ pressed }) => [
+            styles.loginButton,
+            pressed && styles.loginButtonPressed
+          ]}
+        >
+          <Text style={styles.loginButtonText}>Login</Text>
+        </Pressable>
       </View>
 
-      {/* Forgot Password */}
-      <TouchableOpacity style={styles.forgotContainer}>
-        <Text style={styles.linkText}>Forgot Password?</Text>
-      </TouchableOpacity>
-
-      {/* Login Button */}
-      <Pressable
-        onPress={() => {}}
-        style={({ pressed, hovered }) => [
-          styles.loginButton,
-          (pressed || hovered) && styles.loginButtonActive,
-        ]}
-      >
-        <Text style={styles.loginText}>Login</Text>
-      </Pressable>
-
-      {/* Switch User */}
-      <TouchableOpacity style={styles.switchUserContainer}>
-        <Text style={styles.linkText}>Switch User?</Text>
+      {/* Help Button - Bottom Right */}
+      <TouchableOpacity style={styles.helpButton} activeOpacity={0.8}>
+        <Feather name="help-circle" size={22} color="#FFFFFF" />
       </TouchableOpacity>
     </View>
   );
 }
 
-const COLORS = {
-  bg: "#FFFFFF",
-  dark: "#3C4A52",
-  yellow: "#F7C94C",
-  link: "#007BFF",
-  inputBg: "#F7F7F7",
-  buttonIdle: "#999999",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bg,
+    backgroundColor: "#FFFFFF",
     alignItems: "center",
-    paddingHorizontal: 24,
-    paddingTop: 170,
+    paddingTop: 60,
   },
 
+  // Switch User - Top Right
+  switchUserTop: {
+    position: "absolute",
+    top: 50,
+    right: 24,
+    zIndex: 1,
+  },
+  switchUserText: {
+    color: "#007BFF",
+    fontSize: 16,
+  },
+
+  // Logo
   logo: {
     width: 120,
-    height: 120,
-    marginBottom: 30,
+    height: 150,
+    marginTop: 30,
+    marginBottom: 15,
   },
 
-  /* Welcome row */
-  welcomeRow: {
-    flexDirection: "row",
+  // Welcome Section
+  welcomeSection: {
     alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 40,
+    marginBottom: 50,
+    marginTop:-40,
   },
-  userBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: COLORS.yellow,
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#F7C94C",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
-  },
-  helpBadge: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: COLORS.dark,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  welcomeTextBox: {
-    flex: 1,
+  marginRight:185,
+  position:"relative",
+  top:50
+
   },
   welcomeText: {
     fontSize: 14,
-    color: "#444",
+    color: "#666",
+    marginBottom: 5,
   },
   nameText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "600",
-    color: COLORS.dark,
+    color: "#3C4A52",
   },
 
-  /* Login label */
+  // Form Section
+  formSection: {
+    width: "80%",
+    maxWidth: 320,
+  },
   loginLabel: {
-    width: "100%",
-    fontSize: 14,
-    color: "#444",
+    fontSize: 16,
+    color: "#000000ff",
     marginBottom: 8,
+    marginLeft: -20,
   },
-
-  /* Input */
+  
+  // Input Container
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.inputBg,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    height: 50,
-    width: "100%",
-    marginBottom: 8,
+    backgroundColor: "#ffffffff",
+    borderBottomWidth: 1,
+    borderColor: "#D9D9D9",
+    paddingHorizontal: -20,
+    height: 45,
+    marginBottom: 120,
   },
-  icon: {
+  lockIcon: {
     marginRight: 8,
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 14,
     color: "#333",
   },
+  eyeIcon: {
+    padding: 2,
+  },
 
+  // Forgot Password
   forgotContainer: {
-    width: "100%",
     alignItems: "flex-end",
-    marginBottom: 24,
+    marginBottom: 40,
   },
-  linkText: {
-    color: COLORS.link,
-    fontSize: 14,
+  forgotText: {
+    color: "#007BFF",
+    fontSize: 16,
   },
 
-  /* Button */
+  // Login Button
   loginButton: {
-    backgroundColor: COLORS.buttonIdle,
-    borderRadius: 12,
-    height: 50,
-    width: "100%",
+    backgroundColor: "#B8B8B8",
+    borderRadius: 10,
+    height: 46,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 16,
+    width: "100%",
   },
-  loginButtonActive: {
-    backgroundColor: COLORS.dark,
+  loginButtonPressed: {
+    backgroundColor: "#3C4A52",
   },
-  loginText: {
+  loginButtonText: {
     color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 15,
+    fontWeight: "500",
   },
 
-  switchUserContainer: {
-    marginTop: 6,
+  // Help Button - Bottom Right
+  helpButton: {
+    position: "relative",
+    bottom: 180,
+    right: -160,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#3C4A52",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
