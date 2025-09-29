@@ -8,16 +8,22 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native"; // ✅ import navigation hook
 
 export default function LastTenTransactionsScreen() {
+  const navigation = useNavigation(); // ✅ use navigation
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#3C4A52" }}>
-      
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()} // ✅ fixed back button
+        >
           <Feather name="arrow-left" size={24} color="#FFFFFF" />
         </TouchableOpacity>
+
         <Text style={styles.headerTitle}>Last 10 Transactions</Text>
       </View>
 
@@ -166,7 +172,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
     borderRadius: 20,
-    marginTop: -40, // pull up so it overlaps nicely like the screenshot
+    marginTop: -40,
   },
 
   // Header
@@ -181,16 +187,15 @@ const styles = StyleSheet.create({
     height: 100,
   },
   backButton: {
-    marginRight: 16, 
-    bottom:20,
+    marginRight: 16,
+    bottom: 20,
   },
   headerTitle: {
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "500",
-    bottom:20,
-    right:-60,
-
+    bottom: 20,
+    right: -60,
   },
 
   // Account Card
@@ -253,20 +258,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 14,
     marginBottom: 10,
-     // Drop shadow for iOS
-     // Drop shadow for iOS
     shadowColor: "#000",
     shadowOffset: {
       width: 1,
-      height: 6, // stronger vertical drop
+      height: 6,
     },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-
-    // Drop shadow for Android
     elevation: 6,
-
-
   },
   transactionIcon: {
     width: 36,

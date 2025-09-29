@@ -9,10 +9,17 @@ import {
   Pressable,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigation = useNavigation();
+
+  const handleLogin = () => {
+    // later you can validate password here
+    navigation.replace("Home"); // replace prevents going back to login
+  };
 
   return (
     <View style={styles.container}>
@@ -30,19 +37,15 @@ export default function LoginScreen() {
 
       {/* Welcome Section */}
       <View style={styles.welcomeSection}>
-        {/* User Avatar */}
         <View style={styles.avatar}>
           <Feather name="user" size={24} color="#3C4A52" />
         </View>
-        
-        {/* Welcome Text */}
         <Text style={styles.welcomeText}>Welcome back,</Text>
         <Text style={styles.nameText}>Leslie Allotey</Text>
       </View>
 
       {/* Login Form Section */}
       <View style={styles.formSection}>
-        {/* Login Label */}
         <Text style={styles.loginLabel}>Login</Text>
 
         {/* Password Input */}
@@ -56,14 +59,14 @@ export default function LoginScreen() {
             onChangeText={setPassword}
             style={styles.input}
           />
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
             style={styles.eyeIcon}
           >
-            <Feather 
-              name={showPassword ? "eye" : "eye-off"} 
-              size={20} 
-              color="#999" 
+            <Feather
+              name={showPassword ? "eye" : "eye-off"}
+              size={20}
+              color="#999"
             />
           </TouchableOpacity>
         </View>
@@ -75,10 +78,10 @@ export default function LoginScreen() {
 
         {/* Login Button */}
         <Pressable
-          onPress={() => {}}
+          onPress={handleLogin}
           style={({ pressed }) => [
             styles.loginButton,
-            pressed && styles.loginButtonPressed
+            pressed && styles.loginButtonPressed,
           ]}
         >
           <Text style={styles.loginButtonText}>Login</Text>
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
   welcomeSection: {
     alignItems: "center",
     marginBottom: 50,
-    marginTop:-40,
+    marginTop: -40,
   },
   avatar: {
     width: 60,
@@ -134,10 +137,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7C94C",
     alignItems: "center",
     justifyContent: "center",
-  marginRight:185,
-  position:"relative",
-  top:50
-
+    marginRight: 185,
+    position: "relative",
+    top: 50,
   },
   welcomeText: {
     fontSize: 14,
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: -20,
   },
-  
+
   // Input Container
   inputContainer: {
     flexDirection: "row",
@@ -169,7 +171,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffffff",
     borderBottomWidth: 1,
     borderColor: "#D9D9D9",
-    paddingHorizontal: -20,
     height: 45,
     marginBottom: 120,
   },
